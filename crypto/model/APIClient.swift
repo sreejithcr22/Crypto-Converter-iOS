@@ -25,6 +25,122 @@ class APIClient {
     static var sysIndexesQueue = [((Int, Int), (Int, Int), Int)]()
     
     static func syncPrices() {
+        prepareForApiCall()
+        executeApiCall()
+    }
+    
+    private static func parseApiResponse(data: Data) ->List<CoinPrice>? {
+        
+        let decoder = JSONDecoder()
+        let decodedVal = try! decoder.decode(Dictionary<String, Dictionary<String, Double>>.self, from: data)
+        
+        let result = decodedVal.map { (keyVal) -> CoinPrice in
+            
+            let coinPrice = CoinPrice()
+            coinPrice.coinName = keyVal.key
+            let prices = keyVal.value.map { (arg0) -> Price in
+                let price = Price()
+                price.coinName = arg0.key
+                price.price.value = arg0.value
+                return price
+            }
+            coinPrice.prices.append(objectsIn: prices)
+            return coinPrice
+        }
+        
+        print("API parsed result = \(result)")
+        let coinPriceList = List<CoinPrice>()
+        result.forEach { (coinPrice) in
+            coinPriceList.append(coinPrice)
+        }
+        
+        return coinPriceList
+        
+    }
+    
+    private static func fetchPrices(url: URL, onCompleted: @escaping () -> Void) {
+        print("fetchPrices url = \(url)")
+        let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+            if let data = data, let coinPriceList = parseApiResponse(data: data) {
+                print("API response = \(data)")
+                //TODO: Handle parsing failure
+                ConverterDB.addPrices(prices: coinPriceList)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    onCompleted()
+                }
+                
+                
+            } else {
+                print("response from api nil")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    onCompleted()
+                }
+            }
+        })
+        
+        task.resume()
+    }
+    
+    private static func constructUrl(fsys: String, toSys: String) -> URL {
+        
+        var components = URLComponents()
+        components.scheme = APIConstants.SCHEME
+        components.host = APIConstants.HOST
+        components.path = APIConstants.PATH
+        components.queryItems = [
+            URLQueryItem(name: APIConstants.QUERY_PARAM_FSYS, value: fsys),
+            URLQueryItem(name: APIConstants.QUERY_PARAM_TO_SYS, value: toSys)
+        ]
+        return components.url!
+    }
+    
+    private static func executeApiCall() {
+        print("executing api call")
+        let systems = getFromAndToSys(fsysStart: sysIndexesQueue[0].0.0, fsysEnd: sysIndexesQueue[0].0.1,
+                                      toSysStart: sysIndexesQueue[0].1.0, toSysEnd: sysIndexesQueue[0].1.1, currencyType: sysIndexesQueue[0].2)
+        let fsys = systems.0
+        let toSys = systems.1
+        print("fsys = \(fsys) tosys = \(toSys)")
+        let url = constructUrl(fsys: fsys, toSys: toSys)
+        fetchPrices(url: url, onCompleted: onCurrentAPICallCompleted)
+        
+    }
+    
+    
+    private static func getFromAndToSys(fsysStart: Int, fsysEnd: Int, toSysStart: Int, toSysEnd: Int, currencyType: Int) -> (String, String) {
+        
+        let toSysDataSource = currencyType == 1 ? CurrencyData.cryptoCurrencies : CurrencyData.fiatCurrencies
+        let fsys = CurrencyData.cryptoCurrencies.enumerated().filter { (arg) -> Bool in
+            return arg.offset >= fsysStart && arg.offset <= fsysEnd
+        }.map { (arg) -> String in
+            return arg.element.0
+        }
+        
+        let toSys = toSysDataSource.enumerated().filter { (arg) -> Bool in
+            return arg.offset >= toSysStart && arg.offset <= toSysEnd
+        }.map { (arg) -> String in
+            return arg.element.0
+        }
+        
+        return (fsys.joined(separator: ","), toSys.joined(separator: ","))
+        
+    }
+    
+    private static func onCurrentAPICallCompleted() {
+        print("onCurrentAPICallCompleted")
+        if !sysIndexesQueue.isEmpty {
+            sysIndexesQueue.removeFirst()
+        }
+        
+        if !sysIndexesQueue.isEmpty {
+            executeApiCall()
+        } else {
+            print("sysIndexesQueue empty, ending api calls")
+        }
+    }
+    
+    private static func prepareForApiCall() {
         
         let cryptoSize = CurrencyData.cryptoCurrencies.count
         let fiatSize = CurrencyData.fiatCurrencies.count
@@ -53,104 +169,6 @@ class APIClient {
                 end = end < cryptoSize ? end : cryptoSize - 1
                 sysIndexesQueue.append(((fsysStartIndex, fsysEndIndex), (start, end), APIConstants.CURRENCY_TYPE_CRYPTO))
             }
-        }
-        
-        executeApiCall()
-        
-        
-        //fetchPrices(url: getUrl())
-        
-        
-    }
-    
-    private static func fetchPrices(url: URL) {
-        print("fetchPrices url = \(url)")
-        let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
-            if let data = data {
-                print("API response = \(data)")
-                let decoder = JSONDecoder()
-                let decodedVal = try! decoder.decode(Dictionary<String, Dictionary<String, Double>>.self, from: data)
-                
-                let result = decodedVal.map { (keyVal) -> CoinPrice in
-                    
-                    let coinPrice = CoinPrice()
-                    coinPrice.coinName = keyVal.key
-                    let prices = keyVal.value.map { (arg0) -> Price in
-                        let price = Price()
-                        price.coinName = arg0.key
-                        price.price.value = arg0.value
-                        return price
-                    }
-                    coinPrice.prices.append(objectsIn: prices)
-                    return coinPrice
-                }
-                
-                print("API parsed result = \(result)")
-                let coinPriceList = List<CoinPrice>()
-                result.forEach { (coinPrice) in
-                    coinPriceList.append(coinPrice)
-                }
-                ConverterDB.addPrices(prices: coinPriceList)
-                
-                
-            } else {
-                print("response from api nil")
-            }
-        })
-        
-        task.resume()
-    }
-    
-    private static func constructUrl() -> URL {
-        
-        var components = URLComponents()
-        components.scheme = APIConstants.SCHEME
-        components.host = APIConstants.HOST
-        components.path = APIConstants.PATH
-        components.queryItems = [
-            URLQueryItem(name: APIConstants.QUERY_PARAM_FSYS, value: "BTC,ETH"),
-            URLQueryItem(name: APIConstants.QUERY_PARAM_TO_SYS, value: "USD,EUR")
-        ]
-        return components.url!
-    }
-    
-    private static func executeApiCall() {
-        
-        getFromAndToSys(fsysStart: sysIndexesQueue[0].0.0, fsysEnd: sysIndexesQueue[0].0.1,
-                        toSysStart: sysIndexesQueue[0].1.0, toSysEnd: sysIndexesQueue[0].1.1, currencyType: sysIndexesQueue[0].2)
-        
-        onCurrentAPICallCompleted()
-        
-    }
-    
-    private static func getFromAndToSys(fsysStart: Int, fsysEnd: Int, toSysStart: Int, toSysEnd: Int, currencyType: Int) -> (String, String)? {
-        
-        let toSysDataSource = currencyType == 1 ? CurrencyData.cryptoCurrencies : CurrencyData.fiatCurrencies
-        let fsys = CurrencyData.cryptoCurrencies.enumerated().filter { (arg) -> Bool in
-            return arg.offset >= fsysStart && arg.offset <= fsysEnd
-        }.map { (arg) -> String in
-            return arg.element.0
-        }
-        
-        let toSys = toSysDataSource.enumerated().filter { (arg) -> Bool in
-            return arg.offset >= toSysStart && arg.offset <= toSysEnd
-        }.map { (arg) -> String in
-            return arg.element.0
-        }
-        
-        print("fsys = \(fsys), tosys = \(toSys)")
-        
-        return nil
-        
-    }
-    
-    private static func onCurrentAPICallCompleted() {
-        if !sysIndexesQueue.isEmpty {
-            sysIndexesQueue.removeFirst()
-        }
-        
-        if !sysIndexesQueue.isEmpty {
-            executeApiCall()
         }
     }
     

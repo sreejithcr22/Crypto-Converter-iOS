@@ -18,14 +18,11 @@ class CoinListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         coinPrices = ConverterDB.getAllPrices()
-        
-        
-    }
-    
-    func onAPIResponse(data: Data) {
+        print("coin prices db = \(coinPrices)")
         
     }
     
+   
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
