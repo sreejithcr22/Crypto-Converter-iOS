@@ -17,8 +17,8 @@ class APIClient {
         static let PATH = "/data/pricemulti"
         static let QUERY_PARAM_FSYS = "fsyms"
         static let QUERY_PARAM_TO_SYS = "tsyms"
-        static let FSYS_ARG_LIMIT = 2
-        static let TO_SYS_ARG_LIMIT = 2
+        static let FSYS_ARG_LIMIT = 5
+        static let TO_SYS_ARG_LIMIT = 5
         static let CURRENCY_TYPE_CRYPTO = 1
         static let CURRENCY_TYPE_FIAT = 2
     }
@@ -32,7 +32,11 @@ class APIClient {
     private static func parseApiResponse(data: Data) ->List<CoinPrice>? {
         
         let decoder = JSONDecoder()
-        let decodedVal = try! decoder.decode(Dictionary<String, Dictionary<String, Double>>.self, from: data)
+        guard let decodedVal = try? decoder.decode(Dictionary<String, Dictionary<String, Double>>.self, from: data)
+            else {
+                print("Failed to parse response")
+                return nil
+        }
         
         let result = decodedVal.map { (keyVal) -> CoinPrice in
             
@@ -47,6 +51,7 @@ class APIClient {
             coinPrice.prices.append(objectsIn: prices)
             return coinPrice
         }
+        
         
         print("API parsed result = \(result)")
         let coinPriceList = List<CoinPrice>()
@@ -63,19 +68,10 @@ class APIClient {
         let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
             if let data = data, let coinPriceList = parseApiResponse(data: data) {
                 print("API response = \(data)")
-                //TODO: Handle parsing failure
                 ConverterDB.addPrices(prices: coinPriceList)
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    onCompleted()
-                }
-                
-                
-            } else {
-                print("response from api nil")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    onCompleted()
-                }
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                onCompleted()
             }
         })
         

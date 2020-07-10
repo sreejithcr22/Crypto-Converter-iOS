@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E06024724B5EAE000E7FCAF /* SelectCurrencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E06024624B5EAE000E7FCAF /* SelectCurrencyTableViewController.swift */; };
+		7E06024924B6308000E7FCAF /* ChangeCurrencyDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E06024824B6308000E7FCAF /* ChangeCurrencyDelegate.swift */; };
+		7E06024C24B75DEB00E7FCAF /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E06024B24B75DEB00E7FCAF /* UserData.swift */; };
 		7E40FF0624A677A3008730BF /* CoinListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E40FF0524A677A3008730BF /* CoinListTableViewController.swift */; };
 		7E40FF0824A6788B008730BF /* CoinListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E40FF0724A6788B008730BF /* CoinListTableViewCell.swift */; };
 		7E8BB1A0247BB3740026C12D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8BB19F247BB3740026C12D /* AppDelegate.swift */; };
@@ -42,6 +45,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7E06024624B5EAE000E7FCAF /* SelectCurrencyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCurrencyTableViewController.swift; sourceTree = "<group>"; };
+		7E06024824B6308000E7FCAF /* ChangeCurrencyDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeCurrencyDelegate.swift; sourceTree = "<group>"; };
+		7E06024B24B75DEB00E7FCAF /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		7E40FF0524A677A3008730BF /* CoinListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinListTableViewController.swift; sourceTree = "<group>"; };
 		7E40FF0724A6788B008730BF /* CoinListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinListTableViewCell.swift; sourceTree = "<group>"; };
 		7E8BB19C247BB3740026C12D /* crypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = crypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +80,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7E06024A24B6308600E7FCAF /* delegate */ = {
+			isa = PBXGroup;
+			children = (
+				7E06024824B6308000E7FCAF /* ChangeCurrencyDelegate.swift */,
+			);
+			path = delegate;
+			sourceTree = "<group>";
+		};
 		7E8BB193247BB3740026C12D = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +125,8 @@
 				7E8BB1A1247BB3740026C12D /* SceneDelegate.swift */,
 				7E8BB1A3247BB3740026C12D /* ViewController.swift */,
 				7E40FF0524A677A3008730BF /* CoinListTableViewController.swift */,
+				7E06024624B5EAE000E7FCAF /* SelectCurrencyTableViewController.swift */,
+				7E06024A24B6308600E7FCAF /* delegate */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -130,6 +146,7 @@
 				7EA89B9F24B1AB8A00248D6A /* data */,
 				7EA89B9924AF9DD300248D6A /* ConverterDB.swift */,
 				7EA89B9B24B0E35B00248D6A /* APIClient.swift */,
+				7E06024B24B75DEB00E7FCAF /* UserData.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -246,13 +263,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E06024C24B75DEB00E7FCAF /* UserData.swift in Sources */,
 				7E40FF0824A6788B008730BF /* CoinListTableViewCell.swift in Sources */,
 				7EA89B9824AF8F6C00248D6A /* Price.swift in Sources */,
 				7EA89B9A24AF9DD300248D6A /* ConverterDB.swift in Sources */,
+				7E06024924B6308000E7FCAF /* ChangeCurrencyDelegate.swift in Sources */,
 				7E40FF0624A677A3008730BF /* CoinListTableViewController.swift in Sources */,
 				7E8BB1A4247BB3740026C12D /* ViewController.swift in Sources */,
 				7E8BB1A0247BB3740026C12D /* AppDelegate.swift in Sources */,
 				7EA89B8724AE464700248D6A /* CoinPrice.swift in Sources */,
+				7E06024724B5EAE000E7FCAF /* SelectCurrencyTableViewController.swift in Sources */,
 				7E8BB1A2247BB3740026C12D /* SceneDelegate.swift in Sources */,
 				7EA89B9E24B19DBF00248D6A /* CurrencyData.swift in Sources */,
 				7EA89B9C24B0E35B00248D6A /* APIClient.swift in Sources */,
