@@ -49,7 +49,7 @@ class SelectCurrencyTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         UserData.setSelectedCurrency(currency: currencyList[indexPath.row].0)
-        changeCurrencyDelegate?.onCurrencyChanged()
+        changeCurrencyDelegate?.onCurrencyChanged(selectedCurrency: currencyList[indexPath.row].0)
         self.dismiss(animated: true, completion: nil)
     }
     

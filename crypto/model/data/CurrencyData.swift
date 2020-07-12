@@ -22,4 +22,24 @@ struct CurrencyData {
         ("GBP","Pound"),
         ("KWD", "Kuwait dinar")
     ]
+    
+    static func getCurrencyName(currencyCode: String) -> String {
+        var currency = cryptoCurrencies.first(where: { (arg0) -> Bool in
+            return arg0.0 == currencyCode
+        })
+        
+        if currency == nil {
+            currency = fiatCurrencies.first(where: { (arg0) -> Bool in
+                return arg0.0 == currencyCode
+            })
+        }
+        
+        if currency != nil {
+            return "\(currency!.1) (\(currency!.0))"
+        } else {
+            return ""
+        }
+        
+        
+    }
 }

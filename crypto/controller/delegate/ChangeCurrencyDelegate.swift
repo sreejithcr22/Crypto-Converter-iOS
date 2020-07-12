@@ -9,5 +9,5 @@
 import Foundation
 
 protocol ChangeCurrencyDelegate {
-    func onCurrencyChanged()
+    func onCurrencyChanged(selectedCurrency: String?)
 }

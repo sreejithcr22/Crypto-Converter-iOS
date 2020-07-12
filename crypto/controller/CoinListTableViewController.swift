@@ -61,12 +61,14 @@ class CoinListTableViewController: UITableViewController, ChangeCurrencyDelegate
         }
      }
     
-    func onCurrencyChanged() {
-        selectedCurrency = UserData.getSelectedCurrency()
+  
+    
+    func onCurrencyChanged(selectedCurrency: String?) {
+        self.selectedCurrency = UserData.getSelectedCurrency()
         changeCurrencyBtn.setTitle(selectedCurrency, for: .normal)
         print("currency changed = \(selectedCurrency)")
         self.tableView.reloadData()
     }
-     
+    
     
 }
