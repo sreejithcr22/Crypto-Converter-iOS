@@ -10,9 +10,9 @@ import UIKit
 
 class ViewController: UIViewController, ChangeCurrencyDelegate {
     
+    @IBOutlet weak var buttonsContainerStack: UIStackView!
     @IBOutlet weak var currency1Container: UIView!
     @IBOutlet weak var currency2Container: UIView!
-    @IBOutlet weak var calculatorRootView: UIView!
     @IBOutlet weak var value1: UILabel!
     @IBOutlet weak var value2: UILabel!
     
@@ -28,26 +28,45 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
     private var currency1: String = "BTC"
     private var currency2: String = "USD"
     
-    @IBAction func onClicked(_ sender: UIButton) {
-        
+    @IBAction func onDigitClicked(_ sender: UIButton) {
+        print((sender as UIButton).titleLabel?.text)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        drawUI()
         setup()
-        
-        currency1Container.layer.shadowColor = UIColor.black.cgColor
-        currency1Container.layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
-        currency1Container.layer.shadowOpacity = 0.7
-        currency1Container.layer.shadowRadius = 2.0
-        currency1Container.layer.cornerRadius = 5
-        
-        currency2Container.layer.shadowColor = UIColor.black.cgColor
-        currency2Container.layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
-        currency2Container.layer.shadowOpacity = 0.7
-        currency2Container.layer.shadowRadius = 2.0
-        currency2Container.layer.cornerRadius = 5
     }
+    
+    private func drawUI() {
+        
+        applyElevation(view: currency1Container)
+        applyElevation(view: currency2Container)
+        
+        applyBorder(view: btnCurrency1)
+        applyBorder(view: btnCurrency2)
+        
+        buttonsContainerStack.subviews.forEach { (view) in
+            view.subviews.forEach { (button) in
+                applyBorder(view: button)
+            }
+        }
+    }
+    
+    
+    private func applyBorder(view: UIView) {
+        view.layer.borderColor = UIColor.gray.cgColor
+        view.layer.borderWidth = 0.25
+    }
+    
+    private func applyElevation(view: UIView) {
+        view.layer.shadowColor = UIColor.gray.cgColor
+        view.layer.shadowOffset = CGSize(width: 0.25, height: 0.25)
+        view.layer.shadowOpacity = 0.7
+        view.layer.shadowRadius = 2.0
+        view.layer.cornerRadius = 5
+    }
+    
     
     private func setup() {
         btnCurrency1.setTitle(CurrencyData.getCurrencyName(currencyCode: currency1), for: .normal)
@@ -84,6 +103,8 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
         
     }
     
+   
     
 }
+   
 
