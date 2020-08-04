@@ -54,11 +54,13 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
         if tag == 1 {
             selectedLabel = value1
             outputLabel = value2
+            highlightSelectedContainer(selectedView: currency1Container, unselectedView: currency2Container)
         } else {
             selectedLabel = value2
             outputLabel = value1
+            highlightSelectedContainer(selectedView: currency2Container, unselectedView: currency1Container)
         }
-        print(getConvertCurrencies())
+        
     }
     
     @IBAction func onOperatorClicked(_ sender: UIButton) {
@@ -148,6 +150,7 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
     private func setup() {
         btnCurrency1.setTitle(CurrencyData.getCurrencyName(currencyCode: currency1), for: .normal)
         btnCurrency2.setTitle(CurrencyData.getCurrencyName(currencyCode: currency2), for: .normal)
+        highlightSelectedContainer(selectedView: currency1Container, unselectedView: currency2Container)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -178,6 +181,12 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
             btn.setTitle(CurrencyData.getCurrencyName(currencyCode: currency), for: .normal)
         }
         
+    }
+    
+    private func highlightSelectedContainer(selectedView: UIView, unselectedView: UIView) {
+        selectedView.layer.borderWidth = 2
+        selectedView.layer.borderColor = UIColor.green.cgColor
+        unselectedView.layer.borderWidth = 0
     }
     
   
