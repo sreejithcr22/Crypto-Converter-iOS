@@ -42,4 +42,10 @@ struct CurrencyData {
         
         
     }
+    
+    static func getCurrencyCode(currencyName: String) -> String {
+        var currency = currencyName
+        currency.removeLast()
+        return String(currency.split(separator: "(")[1])
+    }
 }

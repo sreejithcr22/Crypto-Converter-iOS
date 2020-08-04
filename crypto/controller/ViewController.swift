@@ -19,23 +19,86 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
     @IBOutlet weak var btnCurrency1: UIButton!
     @IBOutlet weak var btnCurrency2: UIButton!
     private var selectedCurrencyBtn: CurrencyButton = .BUTTON_1
+    private var selectedLabel: UILabel!
+    private var outputLabel: UILabel!
     
     private enum CurrencyButton: Int {
         case BUTTON_1  = 1
         case BUTTON_2 = 2
+        
+        func from(tag: Int) -> CurrencyButton {
+            if tag == 1 {
+                return CurrencyButton.BUTTON_1
+            } else  {
+                return CurrencyButton.BUTTON_2
+        }
+        }
     }
     
     private var currency1: String = "BTC"
     private var currency2: String = "USD"
     
     @IBAction func onDigitClicked(_ sender: UIButton) {
-        print((sender as UIButton).titleLabel?.text)
+        var digit = (sender as UIButton).titleLabel?.text
+        if digit == "." {
+            digit = Converter.onDecimalClicked(inputString: selectedLabel.text!)
+        }
+        selectedLabel.text?.append(digit!)
+        let currencies = getConvertCurrencies()
+        let output = Converter.convert(inputString: selectedLabel!.text!, convertFromCurrency: currencies.0, convertToCurrency: currencies.1)
+        outputLabel.text = output
+        
+    }
+    @IBAction func onLabelClicked(_ sender: UITapGestureRecognizer) {
+        let tag = sender.view?.tag ?? 1
+        if tag == 1 {
+            selectedLabel = value1
+            outputLabel = value2
+        } else {
+            selectedLabel = value2
+            outputLabel = value1
+        }
+        print(getConvertCurrencies())
+    }
+    
+    @IBAction func onOperatorClicked(_ sender: UIButton) {
+        let op = (sender as UIButton).titleLabel?.text
+        guard let converterOutput = Converter.onOperatorClick(op: op!, inputString: selectedLabel.text!)  else {
+            return
+        }
+        selectedLabel.text = converterOutput
+        let currencies = getConvertCurrencies()
+        let output = Converter.convert(inputString: selectedLabel!.text!, convertFromCurrency: currencies.0, convertToCurrency: currencies.1)
+        outputLabel.text = output
+    }
+    
+    @IBAction func onClearClicked(_ sender: UIButton) {
+        selectedLabel.text = ""
+        outputLabel.text = ""
+    }
+    
+    @IBAction func onDeleteClicked(_ sender: UIButton) {
+        if let currentText = selectedLabel.text {
+            if !currentText.isEmpty {
+                var val = currentText
+                val.removeLast()
+                selectedLabel.text = val
+                
+                let currencies = getConvertCurrencies()
+                let output = Converter.convert(inputString: selectedLabel!.text!, convertFromCurrency: currencies.0, convertToCurrency: currencies.1)
+                outputLabel.text = output
+            }
+        }
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         drawUI()
         setup()
+        selectedLabel = value1
+        outputLabel = value2
+       
     }
     
     private func drawUI() {
@@ -52,6 +115,20 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
             }
         }
     }
+    
+    private func getConvertCurrencies() -> (String, String) {
+          var convertFrom: String
+          var convertTo: String
+          if selectedLabel == value1 {
+              convertFrom = btnCurrency1.titleLabel!.text!
+              convertTo = btnCurrency2.titleLabel!.text!
+          } else {
+              convertFrom = btnCurrency2.titleLabel!.text!
+              convertTo = btnCurrency1.titleLabel!.text!
+          }
+        return (CurrencyData.getCurrencyCode(currencyName: convertFrom), CurrencyData.getCurrencyCode(currencyName: convertTo))
+      }
+      
     
     
     private func applyBorder(view: UIView) {
@@ -103,7 +180,7 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
         
     }
     
-   
+  
     
 }
    
