@@ -58,5 +58,37 @@ class ConverterDB {
         }
     }
     
+    class func getPriceFor(forCurrency: String, inCurrency: String) -> NSDecimalNumber? {
+        guard let realm = getRealm() else {
+            return nil
+        }
+        
+        let prices = realm.object(ofType: CoinPrice.self, forPrimaryKey: forCurrency)?.prices
+        let price = prices?.first(where: { (price) -> Bool in
+            price.coinName == inCurrency
+        })
+        
+        if let price = price {
+            if price.price.value != nil {
+                return NSDecimalNumber.init(floatLiteral: price.price.value!)
+            } else {
+                return nil
+            }
+            
+        } else {
+            let prices = realm.object(ofType: CoinPrice.self, forPrimaryKey: inCurrency)?.prices
+            let price = prices?.first(where: { (price) -> Bool in
+                price.coinName == forCurrency
+            })
+            
+            if let priceValue = price?.price.value {
+                return NSDecimalNumber.one.dividing(by: NSDecimalNumber.init(floatLiteral: priceValue))
+            } else {
+                return nil
+            }
+        }
+        
+    }
+    
     
 }

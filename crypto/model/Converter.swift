@@ -10,15 +10,25 @@ import Foundation
 
 struct Converter {
     
-    private static func calculate(input1: NSDecimalNumber, input2: NSDecimalNumber, operation: Operator) -> String  {
+    enum DIGITS: String {
+        case DECIMAL = "."
+        case ZERO_DECIMAL = "0."
+    }
+    
+    enum ERROR_STATE: String {
+        //TODO: localisation
+        case DIVIDE_BY_ZERO = "Can't divide by zero"
+        case DATA_UNAVAILABLE = "Data not available"
+    }
+    private static func calculate(input1: NSDecimalNumber, input2: NSDecimalNumber, operation: Operator) -> String?  {
         
         switch operation {
         case .add : return (input1.adding(input2)).stringValue
         case .substract: return (input1.subtracting(input2)).stringValue
         case .multiply: return (input1.multiplying(by: input2)).stringValue
         case .divide:
-            if input1.compare(NSDecimalNumber.zero) == ComparisonResult.orderedSame {
-                return "Divide by zero"
+            if input2.compare(NSDecimalNumber.zero) == ComparisonResult.orderedSame {
+                return nil
             } else {
                 return (input1.dividing(by: input2)).stringValue
             }
@@ -30,8 +40,6 @@ struct Converter {
         var val2 = String()
         var result: NSDecimalNumber?
         var currentOperator: Operator?
-        
-       
         
         for char in inputString {
             if let op = Operator(rawValue: String(char)) {
@@ -46,7 +54,11 @@ struct Converter {
             
             if let op = currentOperator {
                 val2.append(char)
-                result = NSDecimalNumber(string: calculate(input1: NSDecimalNumber(string: val1), input2: NSDecimalNumber(string: val2), operation: op))
+                if let output = calculate(input1: NSDecimalNumber(string: val1), input2: NSDecimalNumber(string: val2), operation: op) {
+                    result = NSDecimalNumber(string: output)
+                } else {
+                    return ERROR_STATE.DIVIDE_BY_ZERO.rawValue
+                }
             } else {
                 val1.append(char)
                 result = NSDecimalNumber(string: val1)
@@ -54,8 +66,12 @@ struct Converter {
             
         }
         
-        print("result = \(result?.stringValue)")
-        return result?.stringValue ?? ""
+        if let result = result, let converterOutput = convertCurrency(from: convertFromCurrency, to: convertToCurrency, value: result) {
+            return converterOutput
+        } else {
+            return ERROR_STATE.DATA_UNAVAILABLE.rawValue
+        }
+        
     }
     
     static func onOperatorClick(op: String, inputString: String) -> String? {
@@ -74,22 +90,22 @@ struct Converter {
     
     static func onDecimalClicked(inputString: String) -> String {
         if inputString.isEmpty {
-            return "0."
+            return DIGITS.ZERO_DECIMAL.rawValue
         } else if inputString.last == "." {
             return ""
         } else if Operator(rawValue: String(inputString.last!)) != nil {
-            return "0."
+            return DIGITS.ZERO_DECIMAL.rawValue
         } else if Operator.containsOperator(input: inputString){
-            if getLastOperand(input: inputString).contains(".") {
+            if getLastOperand(input: inputString).contains(DIGITS.DECIMAL.rawValue) {
                 return ""
             } else {
-                return "."
+                return DIGITS.DECIMAL.rawValue
             }
         } else {
-           if inputString.contains(".") {
+            if inputString.contains(DIGITS.DECIMAL.rawValue) {
                 return ""
             } else {
-                return "."
+                return DIGITS.DECIMAL.rawValue
             }
         }
     }
@@ -104,5 +120,18 @@ struct Converter {
             }
         }
         return operand
+    }
+    
+    private static func convertCurrency(from: String, to: String, value: NSDecimalNumber) -> String? {
+        let price = ConverterDB.getPriceFor(forCurrency: from, inCurrency: to)
+        if let price = price {
+            print("from = \(from) to = \(to) price = \(price)")
+            let result = value.multiplying(by: price)
+            let handler = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.bankers, scale: 8, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
+            return result.rounding(accordingToBehavior: handler).stringValue
+            
+        } else {
+            return nil
+        }
     }
 }

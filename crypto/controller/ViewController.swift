@@ -31,7 +31,7 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
                 return CurrencyButton.BUTTON_1
             } else  {
                 return CurrencyButton.BUTTON_2
-        }
+            }
         }
     }
     
@@ -39,14 +39,15 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
     private var currency2: String = "USD"
     
     @IBAction func onDigitClicked(_ sender: UIButton) {
+        if isInErrorState(label: selectedLabel) || isInErrorState(label: outputLabel) {
+            return
+        }
         var digit = (sender as UIButton).titleLabel?.text
         if digit == "." {
             digit = Converter.onDecimalClicked(inputString: selectedLabel.text!)
         }
         selectedLabel.text?.append(digit!)
-        let currencies = getConvertCurrencies()
-        let output = Converter.convert(inputString: selectedLabel!.text!, convertFromCurrency: currencies.0, convertToCurrency: currencies.1)
-        outputLabel.text = output
+        updateOutput()
         
     }
     @IBAction func onLabelClicked(_ sender: UITapGestureRecognizer) {
@@ -64,14 +65,15 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
     }
     
     @IBAction func onOperatorClicked(_ sender: UIButton) {
+        if isInErrorState(label: selectedLabel) || isInErrorState(label: outputLabel) {
+            return
+        }
         let op = (sender as UIButton).titleLabel?.text
         guard let converterOutput = Converter.onOperatorClick(op: op!, inputString: selectedLabel.text!)  else {
             return
         }
         selectedLabel.text = converterOutput
-        let currencies = getConvertCurrencies()
-        let output = Converter.convert(inputString: selectedLabel!.text!, convertFromCurrency: currencies.0, convertToCurrency: currencies.1)
-        outputLabel.text = output
+        updateOutput()
     }
     
     @IBAction func onClearClicked(_ sender: UIButton) {
@@ -81,14 +83,15 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
     
     @IBAction func onDeleteClicked(_ sender: UIButton) {
         if let currentText = selectedLabel.text {
-            if !currentText.isEmpty {
+            if !currentText.isEmpty && !isInErrorState(label: selectedLabel) {
                 var val = currentText
                 val.removeLast()
                 selectedLabel.text = val
-                
-                let currencies = getConvertCurrencies()
-                let output = Converter.convert(inputString: selectedLabel!.text!, convertFromCurrency: currencies.0, convertToCurrency: currencies.1)
-                outputLabel.text = output
+                if !val.isEmpty {
+                    updateOutput()
+                } else {
+                    outputLabel.text = ""
+                }
             }
         }
         
@@ -100,7 +103,7 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
         setup()
         selectedLabel = value1
         outputLabel = value2
-       
+        
     }
     
     private func drawUI() {
@@ -119,18 +122,18 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
     }
     
     private func getConvertCurrencies() -> (String, String) {
-          var convertFrom: String
-          var convertTo: String
-          if selectedLabel == value1 {
-              convertFrom = btnCurrency1.titleLabel!.text!
-              convertTo = btnCurrency2.titleLabel!.text!
-          } else {
-              convertFrom = btnCurrency2.titleLabel!.text!
-              convertTo = btnCurrency1.titleLabel!.text!
-          }
+        var convertFrom: String
+        var convertTo: String
+        if selectedLabel == value1 {
+            convertFrom = btnCurrency1.titleLabel!.text!
+            convertTo = btnCurrency2.titleLabel!.text!
+        } else {
+            convertFrom = btnCurrency2.titleLabel!.text!
+            convertTo = btnCurrency1.titleLabel!.text!
+        }
         return (CurrencyData.getCurrencyCode(currencyName: convertFrom), CurrencyData.getCurrencyCode(currencyName: convertTo))
-      }
-      
+    }
+    
     
     
     private func applyBorder(view: UIView) {
@@ -189,8 +192,15 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
         unselectedView.layer.borderWidth = 0
     }
     
-  
+    private func isInErrorState(label: UILabel?) -> Bool {
+        return label?.text == Converter.ERROR_STATE.DIVIDE_BY_ZERO.rawValue || label?.text == Converter.ERROR_STATE.DATA_UNAVAILABLE.rawValue
+    }
     
+    private func updateOutput() {
+        let currencies = getConvertCurrencies()
+        let output = Converter.convert(inputString: selectedLabel!.text!, convertFromCurrency: currencies.0, convertToCurrency: currencies.1)
+        outputLabel.text = output
+    }
 }
-   
+
 
