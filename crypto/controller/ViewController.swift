@@ -173,18 +173,43 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
     
     func onCurrencyChanged(selectedCurrency: String?) {
         if let currency = selectedCurrency {
+            let isSelectedCurrencyFiat = CurrencyData.isFiatCurrency(currencyCode: currency)
             var btn: UIButton
             if selectedCurrencyBtn == CurrencyButton.BUTTON_1 {
+                if isSelectedCurrencyFiat && CurrencyData.isFiatCurrency(currencyCode: currency2) {
+                    showFiatCurrenciesAlert()
+                    return
+                }
                 btn = btnCurrency1
                 currency1 = currency
             } else {
+                if isSelectedCurrencyFiat && CurrencyData.isFiatCurrency(currencyCode: currency1) {
+                    showFiatCurrenciesAlert()
+                    return
+                }
                 btn = btnCurrency2
                 currency2 = currency
             }
+            
             btn.setTitle(CurrencyData.getCurrencyName(currencyCode: currency), for: .normal)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { 
+                if !(self.selectedLabel.text?.isEmpty ?? true) {
+                    self.updateOutput()
+                }
+            }
+            
+            
         }
         
     }
+    
+    private func showFiatCurrenciesAlert() {
+        let alert = UIAlertController(title: nil, message: "Can't convert between two fiat currencies", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
     
     private func highlightSelectedContainer(selectedView: UIView, unselectedView: UIView) {
         selectedView.layer.borderWidth = 2

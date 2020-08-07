@@ -48,4 +48,10 @@ struct CurrencyData {
         currency.removeLast()
         return String(currency.split(separator: "(")[1])
     }
+    
+    static func isFiatCurrency(currencyCode: String) -> Bool {
+        return fiatCurrencies.first { (arg0) -> Bool in
+            arg0.0 == currencyCode
+        } != nil
+    }
 }
