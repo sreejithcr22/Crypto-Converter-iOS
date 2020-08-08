@@ -9,16 +9,25 @@
 import UIKit
 import RealmSwift
 
-class CoinListTableViewController: UITableViewController, ChangeCurrencyDelegate {
+class CoinListTableViewController: UITableViewController, ChangeCurrencyDelegate,  UISearchResultsUpdating {
     
     @IBOutlet weak var changeCurrencyBtn: UIButton!
-    private var coinPrices: Results<CoinPrice>?
+    private var coinPrices: Array<CoinPrice>?
+    private var filteredList: Array<CoinPrice>?
     private var selectedCurrency = UserData.getSelectedCurrency()
+    private var resultSearchController = UISearchController()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        coinPrices = ConverterDB.getAllPrices()
+        setupSearchBar()
+        self.tableView.allowsSelection = false
+        if let prices = ConverterDB.getAllPrices() {
+            coinPrices = Array(prices)
+        } else {
+            coinPrices = Array()
+        }
+        
         changeCurrencyBtn.setTitle(selectedCurrency, for: .normal)
     }
     
@@ -29,16 +38,24 @@ class CoinListTableViewController: UITableViewController, ChangeCurrencyDelegate
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return coinPrices?.count ?? 0
+        if resultSearchController.isActive {
+            return filteredList?.count ?? 0
+        } else {
+            return coinPrices?.count ?? 0
+        }
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CoinListTableViewCell", for: indexPath) as? CoinListTableViewCell
+        var list = coinPrices
+        if resultSearchController.isActive {
+            list = filteredList
+        }
         
-        if let coinPrice = self.coinPrices?[indexPath.row] {
+        if let coinPrice = list?[indexPath.row] {
             
-            cell?.coinName.text = coinPrice.coinName
+            cell?.coinName.text = CurrencyData.getCurrencyName(currencyCode: coinPrice.coinName!)
             let priceDouble = coinPrice.prices.first(where: { (price) -> Bool in
                 price.coinName == selectedCurrency
             })?.price.value ?? -1
@@ -49,19 +66,16 @@ class CoinListTableViewController: UITableViewController, ChangeCurrencyDelegate
         return cell!
     }
     
- 
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SelectCurrencySegue" {
             let viewController = segue.destination as! SelectCurrencyTableViewController
             viewController.setValues(selectedCurrency: UserData.getSelectedCurrency(), changeCurrencyDelegate: self)
             
         }
-     }
-    
-  
+    }
     
     func onCurrencyChanged(selectedCurrency: String?) {
         self.selectedCurrency = UserData.getSelectedCurrency()
@@ -69,6 +83,31 @@ class CoinListTableViewController: UITableViewController, ChangeCurrencyDelegate
         print("currency changed = \(selectedCurrency)")
         self.tableView.reloadData()
     }
+    
+    private func setupSearchBar() {
+        self.resultSearchController = UISearchController(searchResultsController: nil)
+        resultSearchController.searchResultsUpdater = self
+        resultSearchController.obscuresBackgroundDuringPresentation = false
+        resultSearchController.searchBar.sizeToFit()
+        self.tableView.tableHeaderView = resultSearchController.searchBar
+        self.tableView.reloadData()
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchText = searchController.searchBar.text {
+            if searchText.isEmpty {
+                filteredList = coinPrices
+            } else {
+                filteredList = coinPrices?.filter({ (price) -> Bool in
+                    let coinFullName = CurrencyData.getCurrencyName(currencyCode: price.coinName!)
+                    return (price.coinName?.lowercased().contains(searchText.lowercased()) ?? false || coinFullName.lowercased().contains(searchText.lowercased()))
+                })
+            }
+            self.tableView.reloadData()
+        }
+    }
+    
+    
     
     
 }
