@@ -167,7 +167,7 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
         }
         if let selectedCurrency = selectedCurrency {
             let viewController = segue.destination as? SelectCurrencyTableViewController
-            viewController?.setValues(selectedCurrency: selectedCurrency, changeCurrencyDelegate: self)
+            viewController?.setValues(selectedCurrency: selectedCurrency, changeCurrencyDelegate: self, shouldUpdateCurrencyToUserData: false)
         }
     }
     

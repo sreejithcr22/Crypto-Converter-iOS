@@ -30,7 +30,7 @@
                                                             <label opaque="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bgK-9n-Qmb">
                                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="66.666666666666671"/>
                                                                 <gestureRecognizers/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                                 <connections>
@@ -39,6 +39,7 @@
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sxe-E1-Jge">
                                                                 <rect key="frame" x="0.0" y="66.666666666666657" width="374" height="66.333333333333343"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <connections>
                                                                     <segue destination="V1J-ww-LNa" kind="popoverPresentation" identifier="currency1" popoverAnchorView="sxe-E1-Jge" id="wvH-TA-wec">
@@ -78,7 +79,7 @@
                                                             <label opaque="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQk-jS-8AB" userLabel="value2">
                                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="66.666666666666671"/>
                                                                 <gestureRecognizers/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                                 <connections>
@@ -87,6 +88,7 @@
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u80-bJ-EKk">
                                                                 <rect key="frame" x="0.0" y="66.666666666666686" width="374" height="66.333333333333314"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <connections>
                                                                     <segue destination="V1J-ww-LNa" kind="popoverPresentation" identifier="currency2" popoverAnchorView="u80-bJ-EKk" id="kJE-ip-tnS">
@@ -376,43 +378,41 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CoinListTableViewCell" id="sT1-Po-NOg" customClass="CoinListTableViewCell" customModule="crypto" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="42.666667938232422"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="64.666664123535156"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sT1-Po-NOg" id="t6C-zQ-SPn">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="42.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="64.666664123535156"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2ZM-pb-0fC">
-                                            <rect key="frame" x="20" y="11.000000000000002" width="374" height="20.666666666666671"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2ZM-pb-0fC">
+                                            <rect key="frame" x="10" y="0.0" width="394" height="64.666666666666671"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="235235235232343235235235235235235323235235" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BR4-rT-G8B" userLabel="coin_name">
-                                                    <rect key="frame" x="0.0" y="0.0" width="313.66666666666669" height="20.666666666666668"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12918491849839283592835928592852985" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BR4-rT-G8B" userLabel="coin_name">
+                                                    <rect key="frame" x="10" y="22" width="197" height="20.666666666666671"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="34567.90" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Urz-Ne-2f0" userLabel="coin_price">
-                                                    <rect key="frame" x="321.66666666666669" y="0.0" width="52.333333333333314" height="20.666666666666668"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="asajshfajsfasasasajsajhsajhscbajhscb" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Urz-Ne-2f0" userLabel="coin_price">
+                                                    <rect key="frame" x="206.66666666666663" y="22" width="177.33333333333337" height="20.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Urz-Ne-2f0" secondAttribute="trailing" id="7on-pm-k3v"/>
-                                                <constraint firstItem="BR4-rT-G8B" firstAttribute="bottom" secondItem="2ZM-pb-0fC" secondAttribute="bottomMargin" id="IDE-kz-c56"/>
-                                                <constraint firstItem="Urz-Ne-2f0" firstAttribute="bottom" secondItem="2ZM-pb-0fC" secondAttribute="bottomMargin" id="N8U-fW-eHe"/>
-                                                <constraint firstItem="BR4-rT-G8B" firstAttribute="leading" secondItem="2ZM-pb-0fC" secondAttribute="leadingMargin" id="Ne9-3S-H6A"/>
-                                                <constraint firstItem="Urz-Ne-2f0" firstAttribute="top" secondItem="2ZM-pb-0fC" secondAttribute="topMargin" id="Zcr-1c-nY5"/>
-                                                <constraint firstItem="BR4-rT-G8B" firstAttribute="top" secondItem="2ZM-pb-0fC" secondAttribute="topMargin" id="lbk-b3-5DS"/>
+                                                <constraint firstItem="BR4-rT-G8B" firstAttribute="width" secondItem="2ZM-pb-0fC" secondAttribute="width" multiplier="0.5" id="EpO-LK-cjC"/>
+                                                <constraint firstItem="Urz-Ne-2f0" firstAttribute="width" secondItem="2ZM-pb-0fC" secondAttribute="width" multiplier="0.45" id="Kxr-fu-MB2"/>
+                                                <constraint firstItem="BR4-rT-G8B" firstAttribute="leading" secondItem="2ZM-pb-0fC" secondAttribute="leadingMargin" id="puv-Kj-aXl"/>
                                             </constraints>
+                                            <directionalEdgeInsets key="directionalLayoutMargins" top="22" leading="10" bottom="22" trailing="10"/>
                                         </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottomMargin" secondItem="2ZM-pb-0fC" secondAttribute="bottom" id="Mci-o9-Oot"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="2ZM-pb-0fC" secondAttribute="trailing" id="dRs-uT-oDd"/>
-                                        <constraint firstItem="2ZM-pb-0fC" firstAttribute="top" secondItem="t6C-zQ-SPn" secondAttribute="topMargin" id="hrN-BZ-mUR"/>
-                                        <constraint firstItem="2ZM-pb-0fC" firstAttribute="leading" secondItem="t6C-zQ-SPn" secondAttribute="leadingMargin" id="mif-lE-jNi"/>
+                                        <constraint firstItem="2ZM-pb-0fC" firstAttribute="leading" secondItem="t6C-zQ-SPn" secondAttribute="leading" constant="10" id="Sle-Vb-RVU"/>
+                                        <constraint firstAttribute="bottom" secondItem="2ZM-pb-0fC" secondAttribute="bottom" id="UtQ-3G-AIn"/>
+                                        <constraint firstItem="2ZM-pb-0fC" firstAttribute="top" secondItem="t6C-zQ-SPn" secondAttribute="top" id="dGe-n3-CTZ"/>
+                                        <constraint firstAttribute="trailing" secondItem="2ZM-pb-0fC" secondAttribute="trailing" constant="10" id="szE-iB-ae2"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -500,7 +500,7 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Select Currency" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qBd-JY-gXH">
                                             <rect key="frame" x="20" y="0.0" width="374" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -527,6 +527,6 @@
         <image name="square.and.arrow.up" catalog="system" width="56" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wvH-TA-wec"/>
+        <segue reference="dgr-u0-Os2"/>
     </inferredMetricsTieBreakers>
 </document>

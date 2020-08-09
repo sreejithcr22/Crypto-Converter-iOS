@@ -49,6 +49,7 @@ class CoinListTableViewController: UITableViewController, ChangeCurrencyDelegate
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CoinListTableViewCell", for: indexPath) as? CoinListTableViewCell
         var list = coinPrices
+        self.tableView.tableFooterView = UIView()
         if resultSearchController.isActive {
             list = filteredList
         }
@@ -72,7 +73,7 @@ class CoinListTableViewController: UITableViewController, ChangeCurrencyDelegate
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SelectCurrencySegue" {
             let viewController = segue.destination as! SelectCurrencyTableViewController
-            viewController.setValues(selectedCurrency: UserData.getSelectedCurrency(), changeCurrencyDelegate: self)
+            viewController.setValues(selectedCurrency: UserData.getSelectedCurrency(), changeCurrencyDelegate: self, shouldUpdateCurrencyToUserData: true)
             
         }
     }

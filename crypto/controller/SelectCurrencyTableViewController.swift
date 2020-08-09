@@ -15,15 +15,18 @@ class SelectCurrencyTableViewController: UITableViewController, UISearchResultsU
     private var changeCurrencyDelegate: ChangeCurrencyDelegate?
     private var selectedCurrency: String? = nil
     private var resultSearchController = UISearchController()
+    private var shouldUpdateCurrencyToUserData = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
+        self.tableView.tableFooterView = UIView()
     }
     
-    public func setValues(selectedCurrency: String, changeCurrencyDelegate: ChangeCurrencyDelegate) {
+    public func setValues(selectedCurrency: String, changeCurrencyDelegate: ChangeCurrencyDelegate, shouldUpdateCurrencyToUserData: Bool) {
         self.selectedCurrency = selectedCurrency
         self.changeCurrencyDelegate = changeCurrencyDelegate
+        self.shouldUpdateCurrencyToUserData = shouldUpdateCurrencyToUserData
     }
     
     private func setupSearchBar() {
@@ -69,7 +72,9 @@ class SelectCurrencyTableViewController: UITableViewController, UISearchResultsU
         if resultSearchController.isActive {
             list = filteredList
         }
-        UserData.setSelectedCurrency(currency: list[indexPath.row].0)
+        if shouldUpdateCurrencyToUserData {
+            UserData.setSelectedCurrency(currency: list[indexPath.row].0)
+        }
         resultSearchController.dismiss(animated: false, completion: nil)
         self.dismiss(animated: true, completion: { () in
             self.changeCurrencyDelegate?.onCurrencyChanged(selectedCurrency: list[indexPath.row].0)
