@@ -61,7 +61,7 @@ class CoinListTableViewController: UITableViewController, ChangeCurrencyDelegate
                 price.coinName == selectedCurrency
             })?.price.value ?? -1
             let priceString: String = priceDouble.isEqual(to: -1) ? "NA" : String(format:"%.2f", priceDouble)
-            cell?.coinPrice.text = priceString
+            cell?.coinPrice.text = "\(selectedCurrency.uppercased()) \(priceString)"
         }
         
         return cell!

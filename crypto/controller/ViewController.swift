@@ -97,6 +97,16 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
         
     }
     
+    @IBAction func onEqualClicked(_ sender: Any) {
+        if selectedLabel.text?.isEmpty ?? true || isInErrorState(label: selectedLabel) || isInErrorState(label: outputLabel) {
+            return
+        }
+        let currencies = getConvertCurrencies()
+        let output = Converter.convert(inputString: selectedLabel!.text!, convertFromCurrency: currencies.0, convertToCurrency: currencies.1)
+        outputLabel.text = output.0
+        selectedLabel.text = output.1
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         drawUI()
@@ -224,7 +234,7 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
     private func updateOutput() {
         let currencies = getConvertCurrencies()
         let output = Converter.convert(inputString: selectedLabel!.text!, convertFromCurrency: currencies.0, convertToCurrency: currencies.1)
-        outputLabel.text = output
+        outputLabel.text = output.0
     }
 }
 

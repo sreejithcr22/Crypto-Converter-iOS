@@ -35,7 +35,7 @@ struct Converter {
         }
     }
     
-    static func convert(inputString: String, convertFromCurrency: String, convertToCurrency: String) -> String {
+    static func convert(inputString: String, convertFromCurrency: String, convertToCurrency: String) -> (String, String) {
         var val1 = String()
         var val2 = String()
         var result: NSDecimalNumber?
@@ -57,7 +57,7 @@ struct Converter {
                 if let output = calculate(input1: NSDecimalNumber(string: val1), input2: NSDecimalNumber(string: val2), operation: op) {
                     result = NSDecimalNumber(string: output)
                 } else {
-                    return ERROR_STATE.DIVIDE_BY_ZERO.rawValue
+                    return (ERROR_STATE.DIVIDE_BY_ZERO.rawValue, result?.stringValue ?? "")
                 }
             } else {
                 val1.append(char)
@@ -67,9 +67,9 @@ struct Converter {
         }
         
         if let result = result, let converterOutput = convertCurrency(from: convertFromCurrency, to: convertToCurrency, value: result) {
-            return converterOutput
+            return (converterOutput, result.stringValue)
         } else {
-            return ERROR_STATE.DATA_UNAVAILABLE.rawValue
+            return (ERROR_STATE.DATA_UNAVAILABLE.rawValue, result?.stringValue ?? "")
         }
         
     }
