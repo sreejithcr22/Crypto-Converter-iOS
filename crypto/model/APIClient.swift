@@ -23,8 +23,12 @@ class APIClient {
         static let CURRENCY_TYPE_FIAT = 2
     }
     static var sysIndexesQueue = [((Int, Int), (Int, Int), Int)]()
+    private static var progressUnit = 0
+    private static var progress = 0
+    private static var progressDelegate: PriceFetchProgressDelegate? = nil
     
-    static func syncPrices() {
+    static func syncPrices(progressDelegate: PriceFetchProgressDelegate) {
+        self.progressDelegate = progressDelegate
         prepareForApiCall()
         executeApiCall()
     }
@@ -92,6 +96,9 @@ class APIClient {
     }
     
     private static func executeApiCall() {
+        progress = progress + progressUnit
+        print("progress = \(progress)")
+        progressDelegate?.updateProgress(progress: progress)
         print("executing api call")
         let systems = getFromAndToSys(fsysStart: sysIndexesQueue[0].0.0, fsysEnd: sysIndexesQueue[0].0.1,
                                       toSysStart: sysIndexesQueue[0].1.0, toSysEnd: sysIndexesQueue[0].1.1, currencyType: sysIndexesQueue[0].2)
@@ -133,6 +140,7 @@ class APIClient {
             executeApiCall()
         } else {
             print("sysIndexesQueue empty, ending api calls")
+            progressDelegate?.updateProgress(progress: 100)
         }
     }
     
@@ -166,6 +174,8 @@ class APIClient {
                 sysIndexesQueue.append(((fsysStartIndex, fsysEndIndex), (start, end), APIConstants.CURRENCY_TYPE_CRYPTO))
             }
         }
+        
+        progressUnit = 100/sysIndexesQueue.count
     }
     
 }

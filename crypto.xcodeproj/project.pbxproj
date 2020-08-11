@@ -12,6 +12,9 @@
 		7E06024C24B75DEB00E7FCAF /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E06024B24B75DEB00E7FCAF /* UserData.swift */; };
 		7E40FF0624A677A3008730BF /* CoinListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E40FF0524A677A3008730BF /* CoinListTableViewController.swift */; };
 		7E40FF0824A6788B008730BF /* CoinListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E40FF0724A6788B008730BF /* CoinListTableViewCell.swift */; };
+		7E6678CA24E1B15B00643BD9 /* FavouritesDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6678C924E1B15B00643BD9 /* FavouritesDelegate.swift */; };
+		7E6678CC24E1C79D00643BD9 /* PriceFetchProgressDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6678CB24E1C79D00643BD9 /* PriceFetchProgressDelegate.swift */; };
+		7E6678D024E30B7900643BD9 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6678CF24E30B7900643BD9 /* Utils.swift */; };
 		7E8BB1A0247BB3740026C12D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8BB19F247BB3740026C12D /* AppDelegate.swift */; };
 		7E8BB1A2247BB3740026C12D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8BB1A1247BB3740026C12D /* SceneDelegate.swift */; };
 		7E8BB1A4247BB3740026C12D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8BB1A3247BB3740026C12D /* ViewController.swift */; };
@@ -25,6 +28,9 @@
 		7EA89B9A24AF9DD300248D6A /* ConverterDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA89B9924AF9DD300248D6A /* ConverterDB.swift */; };
 		7EA89B9C24B0E35B00248D6A /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA89B9B24B0E35B00248D6A /* APIClient.swift */; };
 		7EA89B9E24B19DBF00248D6A /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA89B9D24B19DBF00248D6A /* CurrencyData.swift */; };
+		7EB202C424E0540A00D56CCC /* FavPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB202C324E0540A00D56CCC /* FavPair.swift */; };
+		7EB202C624E0548200D56CCC /* FavPairDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB202C524E0548200D56CCC /* FavPairDB.swift */; };
+		7EB202C824E0732F00D56CCC /* FavouritesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB202C724E0732F00D56CCC /* FavouritesListViewController.swift */; };
 		7EE5F2AB24B2D8D200123FBE /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EE5F2A924B2D8D200123FBE /* RealmSwift.framework */; };
 		7EE5F2AC24B2D8D200123FBE /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7EE5F2A924B2D8D200123FBE /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7EE5F2AD24B2D8D200123FBE /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EE5F2AA24B2D8D200123FBE /* Realm.framework */; };
@@ -52,6 +58,9 @@
 		7E06024B24B75DEB00E7FCAF /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		7E40FF0524A677A3008730BF /* CoinListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinListTableViewController.swift; sourceTree = "<group>"; };
 		7E40FF0724A6788B008730BF /* CoinListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinListTableViewCell.swift; sourceTree = "<group>"; };
+		7E6678C924E1B15B00643BD9 /* FavouritesDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesDelegate.swift; sourceTree = "<group>"; };
+		7E6678CB24E1C79D00643BD9 /* PriceFetchProgressDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceFetchProgressDelegate.swift; sourceTree = "<group>"; };
+		7E6678CF24E30B7900643BD9 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		7E8BB19C247BB3740026C12D /* crypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = crypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E8BB19F247BB3740026C12D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7E8BB1A1247BB3740026C12D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +76,9 @@
 		7EA89B9924AF9DD300248D6A /* ConverterDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterDB.swift; sourceTree = "<group>"; };
 		7EA89B9B24B0E35B00248D6A /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		7EA89B9D24B19DBF00248D6A /* CurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
+		7EB202C324E0540A00D56CCC /* FavPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavPair.swift; sourceTree = "<group>"; };
+		7EB202C524E0548200D56CCC /* FavPairDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavPairDB.swift; sourceTree = "<group>"; };
+		7EB202C724E0732F00D56CCC /* FavouritesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesListViewController.swift; sourceTree = "<group>"; };
 		7EE5F2A924B2D8D200123FBE /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "crypto/swift-11.3/RealmSwift.framework"; sourceTree = "<group>"; };
 		7EE5F2AA24B2D8D200123FBE /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = "crypto/swift-11.3/Realm.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -88,6 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				7E06024824B6308000E7FCAF /* ChangeCurrencyDelegate.swift */,
+				7E6678C924E1B15B00643BD9 /* FavouritesDelegate.swift */,
+				7E6678CB24E1C79D00643BD9 /* PriceFetchProgressDelegate.swift */,
 			);
 			path = delegate;
 			sourceTree = "<group>";
@@ -131,6 +145,8 @@
 				7E40FF0524A677A3008730BF /* CoinListTableViewController.swift */,
 				7E06024624B5EAE000E7FCAF /* SelectCurrencyTableViewController.swift */,
 				7E06024A24B6308600E7FCAF /* delegate */,
+				7EB202C724E0732F00D56CCC /* FavouritesListViewController.swift */,
+				7E6678CF24E30B7900643BD9 /* Utils.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -152,6 +168,7 @@
 				7EA89B9B24B0E35B00248D6A /* APIClient.swift */,
 				7E06024B24B75DEB00E7FCAF /* UserData.swift */,
 				7E8F797D24C31C1E0074FF90 /* Converter.swift */,
+				7EB202C524E0548200D56CCC /* FavPairDB.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -172,6 +189,7 @@
 				7EA89B9724AF8F6C00248D6A /* Price.swift */,
 				7EA89B9D24B19DBF00248D6A /* CurrencyData.swift */,
 				7E8F797F24C342F00074FF90 /* Operator.swift */,
+				7EB202C324E0540A00D56CCC /* FavPair.swift */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -269,20 +287,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EB202C624E0548200D56CCC /* FavPairDB.swift in Sources */,
 				7E06024C24B75DEB00E7FCAF /* UserData.swift in Sources */,
+				7EB202C424E0540A00D56CCC /* FavPair.swift in Sources */,
 				7E40FF0824A6788B008730BF /* CoinListTableViewCell.swift in Sources */,
 				7EA89B9824AF8F6C00248D6A /* Price.swift in Sources */,
 				7EA89B9A24AF9DD300248D6A /* ConverterDB.swift in Sources */,
+				7EB202C824E0732F00D56CCC /* FavouritesListViewController.swift in Sources */,
 				7E06024924B6308000E7FCAF /* ChangeCurrencyDelegate.swift in Sources */,
 				7E40FF0624A677A3008730BF /* CoinListTableViewController.swift in Sources */,
 				7E8BB1A4247BB3740026C12D /* ViewController.swift in Sources */,
 				7E8F798024C342F00074FF90 /* Operator.swift in Sources */,
 				7E8BB1A0247BB3740026C12D /* AppDelegate.swift in Sources */,
+				7E6678CC24E1C79D00643BD9 /* PriceFetchProgressDelegate.swift in Sources */,
 				7EA89B8724AE464700248D6A /* CoinPrice.swift in Sources */,
 				7E06024724B5EAE000E7FCAF /* SelectCurrencyTableViewController.swift in Sources */,
 				7E8F797E24C31C1E0074FF90 /* Converter.swift in Sources */,
 				7E8BB1A2247BB3740026C12D /* SceneDelegate.swift in Sources */,
+				7E6678D024E30B7900643BD9 /* Utils.swift in Sources */,
 				7EA89B9E24B19DBF00248D6A /* CurrencyData.swift in Sources */,
+				7E6678CA24E1B15B00643BD9 /* FavouritesDelegate.swift in Sources */,
 				7EA89B9C24B0E35B00248D6A /* APIClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

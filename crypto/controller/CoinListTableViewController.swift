@@ -72,8 +72,9 @@ class CoinListTableViewController: UITableViewController, ChangeCurrencyDelegate
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SelectCurrencySegue" {
-            let viewController = segue.destination as! SelectCurrencyTableViewController
-            viewController.setValues(selectedCurrency: UserData.getSelectedCurrency(), changeCurrencyDelegate: self, shouldUpdateCurrencyToUserData: true)
+            let navigationController = segue.destination as? UINavigationController
+            let viewController = navigationController?.viewControllers.first as? SelectCurrencyTableViewController
+            viewController?.setValues(selectedCurrency: UserData.getSelectedCurrency(), changeCurrencyDelegate: self, shouldUpdateCurrencyToUserData: true)
             
         }
     }

@@ -8,19 +8,24 @@
 
 import UIKit
 
-class ViewController: UIViewController, ChangeCurrencyDelegate {
+class ViewController: UIViewController, ChangeCurrencyDelegate, FavouritesDelegate, PriceFetchProgressDelegate {
+    @IBOutlet weak var loadingLabel: UILabel!
     
+    @IBOutlet weak var loadingView: UIStackView!
+    @IBOutlet weak var rootView: UIStackView!
     @IBOutlet weak var buttonsContainerStack: UIStackView!
     @IBOutlet weak var currency1Container: UIView!
     @IBOutlet weak var currency2Container: UIView!
     @IBOutlet weak var value1: UILabel!
     @IBOutlet weak var value2: UILabel!
+    @IBOutlet weak var addFavButton: UIButton!
     
     @IBOutlet weak var btnCurrency1: UIButton!
     @IBOutlet weak var btnCurrency2: UIButton!
     private var selectedCurrencyBtn: CurrencyButton = .BUTTON_1
     private var selectedLabel: UILabel!
     private var outputLabel: UILabel!
+    private let PROGRESS_SHOWN = "progress_shown"
     
     private enum CurrencyButton: Int {
         case BUTTON_1  = 1
@@ -107,8 +112,29 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
         selectedLabel.text = output.1
     }
     
+    @IBAction func onFavButtonClicked(_ sender: UIButton) {
+        let currencies = getConvertCurrencies()
+        if sender.tag == 0 {
+            sender.tintColor = UIColor.red
+            sender.tag = 1
+            FavPairDB.addPair(convertFrom: currencies.0, convertTo: currencies.1)
+            showAlertWith(message: "Added to favourites")
+        } else {
+            sender.tintColor = UIColor.darkGray
+            sender.tag = 0
+            FavPairDB.deletePair(convertFrom: currencies.0, convertTo: currencies.1)
+            showAlertWith(message: "Removed from favourites")
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+     
+        if Utils.isConnectedToNetwork() {
+            APIClient.syncPrices(progressDelegate: self)
+        } else {
+            showAlertWith(message: "Please connect to the internet and relaunch the app.", title: "No network")
+        }
         drawUI()
         setup()
         selectedLabel = value1
@@ -164,6 +190,7 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
         btnCurrency1.setTitle(CurrencyData.getCurrencyName(currencyCode: currency1), for: .normal)
         btnCurrency2.setTitle(CurrencyData.getCurrencyName(currencyCode: currency2), for: .normal)
         highlightSelectedContainer(selectedView: currency1Container, unselectedView: currency2Container)
+        updateFavPairStatus()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -174,9 +201,15 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
         } else if segue.identifier == "currency2" {
             selectedCurrency = currency2
             selectedCurrencyBtn = CurrencyButton.BUTTON_2
+        } else if segue.identifier == "Favourites" {
+            let navigationController = segue.destination as? UINavigationController
+            let viewController = navigationController?.viewControllers.first as? FavouritesListViewController
+            viewController?.delegate = self
+            return
         }
         if let selectedCurrency = selectedCurrency {
-            let viewController = segue.destination as? SelectCurrencyTableViewController
+            let navigationController = segue.destination as? UINavigationController
+            let viewController = navigationController?.viewControllers.first as? SelectCurrencyTableViewController
             viewController?.setValues(selectedCurrency: selectedCurrency, changeCurrencyDelegate: self, shouldUpdateCurrencyToUserData: false)
         }
     }
@@ -187,14 +220,14 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
             var btn: UIButton
             if selectedCurrencyBtn == CurrencyButton.BUTTON_1 {
                 if isSelectedCurrencyFiat && CurrencyData.isFiatCurrency(currencyCode: currency2) {
-                    showFiatCurrenciesAlert()
+                    showAlertWith(message: "Can't convert between two fiat currencies")
                     return
                 }
                 btn = btnCurrency1
                 currency1 = currency
             } else {
                 if isSelectedCurrencyFiat && CurrencyData.isFiatCurrency(currencyCode: currency1) {
-                    showFiatCurrenciesAlert()
+                    showAlertWith(message: "Can't convert between two fiat currencies")
                     return
                 }
                 btn = btnCurrency2
@@ -202,8 +235,8 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
             }
             
             btn.setTitle(CurrencyData.getCurrencyName(currencyCode: currency), for: .normal)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { 
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.updateFavPairStatus()
                 if !(self.selectedLabel.text?.isEmpty ?? true) {
                     self.updateOutput()
                 }
@@ -214,11 +247,7 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
         
     }
     
-    private func showFiatCurrenciesAlert() {
-        let alert = UIAlertController(title: nil, message: "Can't convert between two fiat currencies", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alert, animated: true)
-    }
+    
     
     
     private func highlightSelectedContainer(selectedView: UIView, unselectedView: UIView) {
@@ -236,6 +265,59 @@ class ViewController: UIViewController, ChangeCurrencyDelegate {
         let output = Converter.convert(inputString: selectedLabel!.text!, convertFromCurrency: currencies.0, convertToCurrency: currencies.1)
         outputLabel.text = output.0
     }
+    
+    private func updateFavPairStatus() {
+        let currencies = getConvertCurrencies()
+        let isFav = FavPairDB.isPairAdded(convertFrom: currencies.0, convertTo: currencies.1)
+        addFavButton.tintColor = isFav ? UIColor.red : UIColor.darkGray
+        addFavButton.tag = isFav ? 1 : 0
+        
+    }
+    
+    func onFavouriteSelected(favPair: FavPair) {
+        btnCurrency1.setTitle(CurrencyData.getCurrencyName(currencyCode: favPair.convertFrom!), for: .normal)
+        btnCurrency2.setTitle(CurrencyData.getCurrencyName(currencyCode: favPair.convertTo!), for: .normal)
+        addFavButton.tintColor = UIColor.red
+        addFavButton.tag = 1
+        value1.text = ""
+        value2.text = ""
+        currency1 = favPair.convertFrom!
+        currency2 = favPair.convertTo!
+    }
+    
+    func updateProgress(progress: Int) {
+        if isProgressShown() {
+            return
+        }
+        if progress == 100 {
+            UserDefaults.standard.set(true, forKey: PROGRESS_SHOWN)
+            rootView.isHidden = false
+            loadingView.isHidden = true
+        } else {
+            rootView.isHidden = true
+            loadingView.isHidden = false
+            loadingLabel.text = "Downloading prices[\(progress)%]..."
+        }
+    }
+    
+    private func isProgressShown() -> Bool {
+        return UserDefaults.standard.bool(forKey: PROGRESS_SHOWN)
+    }
+
 }
 
+extension UIViewController {
+    
+    func showAlertWith(message: String) {
+           let alert = UIAlertController(title: nil, message: message, preferredStyle: .actionSheet)
+           alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+           self.present(alert, animated: true)
+       }
+    
+    func showAlertWith(message: String, title: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
+}
 

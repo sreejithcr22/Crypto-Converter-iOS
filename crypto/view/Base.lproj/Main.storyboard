@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,6 +16,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="kud-QE-SXb" userLabel="loadingContainer">
+                                <rect key="frame" x="0.0" y="329" width="414" height="78"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Fkm-nH-odw">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
+                                    </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7sd-5s-CUz">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="7sd-5s-CUz" firstAttribute="width" secondItem="kud-QE-SXb" secondAttribute="width" id="PMz-xG-EyL"/>
+                                </constraints>
+                            </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hqH-vm-nxb" userLabel="root">
                                 <rect key="frame" x="0.0" y="44" width="414" height="692"/>
                                 <subviews>
@@ -42,7 +60,7 @@
                                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <connections>
-                                                                    <segue destination="V1J-ww-LNa" kind="popoverPresentation" identifier="currency1" popoverAnchorView="sxe-E1-Jge" id="wvH-TA-wec">
+                                                                    <segue destination="cJT-Oc-CAy" kind="popoverPresentation" identifier="currency1" popoverAnchorView="sxe-E1-Jge" id="wvH-TA-wec">
                                                                         <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                                                     </segue>
                                                                 </connections>
@@ -91,7 +109,7 @@
                                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <connections>
-                                                                    <segue destination="V1J-ww-LNa" kind="popoverPresentation" identifier="currency2" popoverAnchorView="u80-bJ-EKk" id="kJE-ip-tnS">
+                                                                    <segue destination="cJT-Oc-CAy" kind="popoverPresentation" identifier="currency2" popoverAnchorView="u80-bJ-EKk" id="kJE-ip-tnS">
                                                                         <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                                                     </segue>
                                                                 </connections>
@@ -128,12 +146,20 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="41m-M2-FAo">
                                                                 <rect key="frame" x="0.0" y="0.0" width="103.66666666666667" height="57.666666666666664"/>
                                                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <state key="normal" image="heart" catalog="system"/>
+                                                                <state key="normal" image="heart.fill" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="onFavButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RmL-F3-wfA"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S5N-Gk-LI1">
                                                                 <rect key="frame" x="103.66666666666669" y="0.0" width="103.33333333333331" height="57.666666666666664"/>
                                                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" image="list.dash" catalog="system"/>
+                                                                <connections>
+                                                                    <segue destination="WWt-sP-5WO" kind="popoverPresentation" identifier="Favourites" popoverAnchorView="S5N-Gk-LI1" id="ABe-ot-Oh6">
+                                                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                                    </segue>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fbx-wA-mHZ">
                                                                 <rect key="frame" x="206.99999999999997" y="0.0" width="103.66666666666666" height="57.666666666666664"/>
@@ -399,6 +425,9 @@
                         <constraints>
                             <constraint firstItem="hqH-vm-nxb" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" id="BcJ-uC-s8h"/>
                             <constraint firstItem="hqH-vm-nxb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ez7-XT-idH"/>
+                            <constraint firstItem="kud-QE-SXb" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ZYz-Mg-5mV"/>
+                            <constraint firstItem="kud-QE-SXb" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="buq-PP-hSZ"/>
+                            <constraint firstItem="kud-QE-SXb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rQW-oY-bEi"/>
                             <constraint firstItem="hqH-vm-nxb" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" id="uA5-Tp-Xcp"/>
                             <constraint firstItem="hqH-vm-nxb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="wsH-V1-vSp"/>
                         </constraints>
@@ -406,11 +435,15 @@
                     </view>
                     <navigationItem key="navigationItem" title="Converter" id="AWK-qv-8TP"/>
                     <connections>
+                        <outlet property="addFavButton" destination="41m-M2-FAo" id="ywI-wz-y2w"/>
                         <outlet property="btnCurrency1" destination="sxe-E1-Jge" id="FXb-2j-nFQ"/>
                         <outlet property="btnCurrency2" destination="u80-bJ-EKk" id="F1h-o7-4Lu"/>
                         <outlet property="buttonsContainerStack" destination="lff-0o-Vue" id="7bl-h7-j5H"/>
                         <outlet property="currency1Container" destination="ZGq-Sg-dOl" id="ff3-xQ-kSa"/>
                         <outlet property="currency2Container" destination="db6-Zl-Qps" id="T00-OR-QFf"/>
+                        <outlet property="loadingLabel" destination="7sd-5s-CUz" id="NBD-8N-MCV"/>
+                        <outlet property="loadingView" destination="kud-QE-SXb" id="VOm-u5-U3R"/>
+                        <outlet property="rootView" destination="hqH-vm-nxb" id="TmZ-ue-s8Q"/>
                         <outlet property="value1" destination="bgK-9n-Qmb" id="AxA-de-8D5"/>
                         <outlet property="value2" destination="gQk-jS-8AB" id="qa2-Ow-99X"/>
                     </connections>
@@ -440,23 +473,23 @@
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CoinListTableViewCell" id="sT1-Po-NOg" customClass="CoinListTableViewCell" customModule="crypto" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="98.333335876464844"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="98.666664123535156"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sT1-Po-NOg" id="t6C-zQ-SPn">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="98.333335876464844"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="98.666664123535156"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2ZM-pb-0fC">
-                                            <rect key="frame" x="10" y="0.0" width="394" height="98.333333333333329"/>
+                                            <rect key="frame" x="10" y="0.0" width="394" height="98.666666666666671"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BR4-rT-G8B" userLabel="coin_name">
-                                                    <rect key="frame" x="10" y="22.000000000000004" width="197" height="54.333333333333343"/>
+                                                    <rect key="frame" x="10" y="21.999999999999996" width="197" height="54.666666666666657"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Urz-Ne-2f0" userLabel="coin_price">
-                                                    <rect key="frame" x="206.66666666666663" y="22.000000000000004" width="177.33333333333337" height="54.333333333333343"/>
+                                                    <rect key="frame" x="206.66666666666663" y="21.999999999999996" width="177.33333333333337" height="54.666666666666657"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                     <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -494,7 +527,7 @@
                                 <rect key="frame" x="302" y="7" width="92" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="V1J-ww-LNa" kind="popoverPresentation" identifier="SelectCurrencySegue" popoverAnchorView="59q-cH-h8F" id="dgr-u0-Os2">
+                                    <segue destination="cJT-Oc-CAy" kind="popoverPresentation" identifier="SelectCurrencySegue" popoverAnchorView="59q-cH-h8F" id="dgr-u0-Os2">
                                         <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                     </segue>
                                 </connections>
@@ -560,7 +593,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Select Currency" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qBd-JY-gXH">
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qBd-JY-gXH">
                                             <rect key="frame" x="20" y="0.0" width="374" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
@@ -576,20 +609,94 @@
                             <outlet property="delegate" destination="V1J-ww-LNa" id="1W6-0u-UGo"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Select Currency" largeTitleDisplayMode="always" id="xNc-fi-Yyx"/>
+                    <navigationItem key="navigationItem" title="Select Currency" id="t1t-5g-zNX"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xwe-n4-QeM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1955.072463768116" y="-572.28260869565224"/>
+            <point key="canvasLocation" x="3769.5652173913045" y="-572.28260869565224"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="3Xv-GE-tIc">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cJT-Oc-CAy" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="IEk-WK-mft">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="V1J-ww-LNa" kind="relationship" relationship="rootViewController" id="cUd-6W-5GD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PAj-Be-A5M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2862.3188405797105" y="-572.28260869565224"/>
+        </scene>
+        <!--Favourites-->
+        <scene sceneID="iFs-sN-aaH">
+            <objects>
+                <tableViewController title="Favourites" id="jHy-Fr-LGd" customClass="FavouritesListViewController" customModule="crypto" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ZmY-HR-Ov7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="Tfm-f2-Wlk" style="IBUITableViewCellStyleDefault" id="Nwq-UG-FC6">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Nwq-UG-FC6" id="0jL-ir-pby">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Tfm-f2-Wlk">
+                                            <rect key="frame" x="20" y="0.0" width="374" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="jHy-Fr-LGd" id="jEG-Ot-b0M"/>
+                            <outlet property="delegate" destination="jHy-Fr-LGd" id="A2e-2q-mst"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Favourites" id="z1x-59-fno"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VFO-B8-ZLO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="984.05797101449286" y="-572.28260869565224"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="PRt-ST-EY0">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WWt-sP-5WO" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="j1Y-9A-fcO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="jHy-Fr-LGd" kind="relationship" relationship="rootViewController" id="bUd-g0-fac"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="feJ-Ee-3XL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="76.811594202898561" y="-572.28260869565224"/>
         </scene>
     </scenes>
     <resources>
         <image name="ellipsis" catalog="system" width="64" height="18"/>
-        <image name="heart" catalog="system" width="64" height="54"/>
+        <image name="heart.fill" catalog="system" width="64" height="54"/>
         <image name="list.dash" catalog="system" width="64" height="42"/>
         <image name="square.and.arrow.up" catalog="system" width="56" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dgr-u0-Os2"/>
+        <segue reference="kJE-ip-tnS"/>
     </inferredMetricsTieBreakers>
 </document>
