@@ -15,6 +15,7 @@
 		7E6678CA24E1B15B00643BD9 /* FavouritesDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6678C924E1B15B00643BD9 /* FavouritesDelegate.swift */; };
 		7E6678CC24E1C79D00643BD9 /* PriceFetchProgressDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6678CB24E1C79D00643BD9 /* PriceFetchProgressDelegate.swift */; };
 		7E6678D024E30B7900643BD9 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6678CF24E30B7900643BD9 /* Utils.swift */; };
+		7E6678D224E3225500643BD9 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6678D124E3225500643BD9 /* AboutViewController.swift */; };
 		7E8BB1A0247BB3740026C12D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8BB19F247BB3740026C12D /* AppDelegate.swift */; };
 		7E8BB1A2247BB3740026C12D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8BB1A1247BB3740026C12D /* SceneDelegate.swift */; };
 		7E8BB1A4247BB3740026C12D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8BB1A3247BB3740026C12D /* ViewController.swift */; };
@@ -61,6 +62,7 @@
 		7E6678C924E1B15B00643BD9 /* FavouritesDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesDelegate.swift; sourceTree = "<group>"; };
 		7E6678CB24E1C79D00643BD9 /* PriceFetchProgressDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceFetchProgressDelegate.swift; sourceTree = "<group>"; };
 		7E6678CF24E30B7900643BD9 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		7E6678D124E3225500643BD9 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		7E8BB19C247BB3740026C12D /* crypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = crypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E8BB19F247BB3740026C12D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7E8BB1A1247BB3740026C12D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				7E06024A24B6308600E7FCAF /* delegate */,
 				7EB202C724E0732F00D56CCC /* FavouritesListViewController.swift */,
 				7E6678CF24E30B7900643BD9 /* Utils.swift */,
+				7E6678D124E3225500643BD9 /* AboutViewController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 			files = (
 				7EB202C624E0548200D56CCC /* FavPairDB.swift in Sources */,
 				7E06024C24B75DEB00E7FCAF /* UserData.swift in Sources */,
+				7E6678D224E3225500643BD9 /* AboutViewController.swift in Sources */,
 				7EB202C424E0540A00D56CCC /* FavPair.swift in Sources */,
 				7E40FF0824A6788B008730BF /* CoinListTableViewCell.swift in Sources */,
 				7EA89B9824AF8F6C00248D6A /* Price.swift in Sources */,

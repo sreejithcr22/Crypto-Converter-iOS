@@ -174,9 +174,7 @@
                                                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" image="ellipsis" catalog="system"/>
                                                                 <connections>
-                                                                    <segue destination="Fat-DW-Z22" kind="popoverPresentation" popoverAnchorView="taH-ZN-WnP" id="CPb-KH-cT4">
-                                                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                                                    </segue>
+                                                                    <segue destination="Fat-DW-Z22" kind="show" id="CPb-KH-cT4"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -473,23 +471,23 @@
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CoinListTableViewCell" id="sT1-Po-NOg" customClass="CoinListTableViewCell" customModule="crypto" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="98.666664123535156"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="99.333335876464844"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sT1-Po-NOg" id="t6C-zQ-SPn">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="98.666664123535156"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="99.333335876464844"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2ZM-pb-0fC">
-                                            <rect key="frame" x="10" y="0.0" width="394" height="98.666666666666671"/>
+                                            <rect key="frame" x="10" y="0.0" width="394" height="99.333333333333329"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BR4-rT-G8B" userLabel="coin_name">
-                                                    <rect key="frame" x="10" y="21.999999999999996" width="197" height="54.666666666666657"/>
+                                                    <rect key="frame" x="10" y="22.000000000000004" width="197" height="55.333333333333343"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Urz-Ne-2f0" userLabel="coin_price">
-                                                    <rect key="frame" x="206.66666666666663" y="21.999999999999996" width="177.33333333333337" height="54.666666666666657"/>
+                                                    <rect key="frame" x="206.66666666666663" y="22.000000000000004" width="177.33333333333337" height="55.333333333333343"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                     <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -542,19 +540,72 @@
             </objects>
             <point key="canvasLocation" x="-110" y="804"/>
         </scene>
-        <!--View Controller-->
+        <!--About-->
         <scene sceneID="rjK-Ng-ypu">
             <objects>
-                <viewController id="Fat-DW-Z22" sceneMemberID="viewController">
+                <viewController id="Fat-DW-Z22" customClass="AboutViewController" customModule="crypto" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cYq-0u-UF3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="du7-Nm-2Bo" userLabel="feedbackContainer">
+                                <rect key="frame" x="0.0" y="44" width="414" height="60.333333333333343"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feedback" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lD5-Nj-uXp">
+                                        <rect key="frame" x="10" y="9.9999999999999982" width="74.666666666666671" height="20.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="codit.apps@gmail.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVa-zG-AHk">
+                                        <rect key="frame" x="10" y="32.333333333333329" width="152.33333333333334" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c0x-zn-lOk">
+                                        <rect key="frame" x="0.0" y="60" width="414" height="0.3333333333333357"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="V95-Xm-Twx"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="c0x-zn-lOk" secondAttribute="trailing" id="5Zb-c7-Rbm"/>
+                                    <constraint firstItem="NVa-zG-AHk" firstAttribute="top" secondItem="lD5-Nj-uXp" secondAttribute="bottomMargin" constant="10" id="87Y-K2-Jit"/>
+                                    <constraint firstItem="lD5-Nj-uXp" firstAttribute="top" secondItem="du7-Nm-2Bo" secondAttribute="top" constant="10" id="EoM-p7-QVU"/>
+                                    <constraint firstItem="NVa-zG-AHk" firstAttribute="leading" secondItem="du7-Nm-2Bo" secondAttribute="leading" constant="10" id="JS5-Y4-sbK"/>
+                                    <constraint firstAttribute="bottom" secondItem="c0x-zn-lOk" secondAttribute="bottom" id="KoN-zf-wih"/>
+                                    <constraint firstAttribute="bottom" secondItem="NVa-zG-AHk" secondAttribute="bottom" constant="10" id="a3s-0F-jzc"/>
+                                    <constraint firstItem="lD5-Nj-uXp" firstAttribute="leading" secondItem="du7-Nm-2Bo" secondAttribute="leading" constant="10" id="pK4-SV-cDW"/>
+                                    <constraint firstItem="c0x-zn-lOk" firstAttribute="leading" secondItem="du7-Nm-2Bo" secondAttribute="leading" id="u49-6q-6Ot"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Tw2-vA-rFl" appends="YES" id="HiD-8c-cR9"/>
+                                </connections>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Djk-Zf-GSp" firstAttribute="trailing" secondItem="du7-Nm-2Bo" secondAttribute="trailing" id="DMF-DX-PRu"/>
+                            <constraint firstItem="du7-Nm-2Bo" firstAttribute="top" secondItem="Djk-Zf-GSp" secondAttribute="top" id="Go9-bp-zPZ"/>
+                            <constraint firstItem="du7-Nm-2Bo" firstAttribute="leading" secondItem="Djk-Zf-GSp" secondAttribute="leading" id="eYC-Zt-pWs"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Djk-Zf-GSp"/>
                     </view>
-                    <navigationItem key="navigationItem" id="x5f-g0-uvd"/>
+                    <navigationItem key="navigationItem" title="About" id="x5f-g0-uvd"/>
+                    <connections>
+                        <outlet property="feedbackContainer" destination="du7-Nm-2Bo" id="sWX-Ro-nWz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PeH-cT-nbL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Tw2-vA-rFl">
+                    <connections>
+                        <action selector="onFeedbackClicked:" destination="Fat-DW-Z22" id="6BZ-5i-oFq"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1068" y="822"/>
         </scene>
@@ -697,6 +748,6 @@
         <image name="square.and.arrow.up" catalog="system" width="56" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kJE-ip-tnS"/>
+        <segue reference="dgr-u0-Os2"/>
     </inferredMetricsTieBreakers>
 </document>
