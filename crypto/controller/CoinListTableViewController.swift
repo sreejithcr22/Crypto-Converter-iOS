@@ -27,7 +27,7 @@ class CoinListTableViewController: UITableViewController, ChangeCurrencyDelegate
         } else {
             coinPrices = Array()
         }
-        
+        sortCurrencyList()
         changeCurrencyBtn.setTitle(selectedCurrency, for: .normal)
     }
     
@@ -83,6 +83,7 @@ class CoinListTableViewController: UITableViewController, ChangeCurrencyDelegate
         self.selectedCurrency = UserData.getSelectedCurrency()
         changeCurrencyBtn.setTitle(selectedCurrency, for: .normal)
         print("currency changed = \(selectedCurrency)")
+        sortCurrencyList()
         self.tableView.reloadData()
     }
     
@@ -109,7 +110,18 @@ class CoinListTableViewController: UITableViewController, ChangeCurrencyDelegate
         }
     }
     
-    
-    
+    private func sortCurrencyList() {
+        coinPrices?.sort(by: { (coinPrice1, coinPrice2) -> Bool in
+            let priceDouble1 = coinPrice1.prices.first(where: { (price) -> Bool in
+                price.coinName == selectedCurrency
+            })?.price.value ?? -1
+            
+            let priceDouble2 = coinPrice2.prices.first(where: { (price) -> Bool in
+                price.coinName == selectedCurrency
+            })?.price.value ?? -1
+            
+            return priceDouble1 > priceDouble2
+        })
+    }
     
 }

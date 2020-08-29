@@ -17,8 +17,8 @@ class APIClient {
         static let PATH = "/data/pricemulti"
         static let QUERY_PARAM_FSYS = "fsyms"
         static let QUERY_PARAM_TO_SYS = "tsyms"
-        static let FSYS_ARG_LIMIT = 5
-        static let TO_SYS_ARG_LIMIT = 5
+        static let FSYS_ARG_LIMIT = 50
+        static let TO_SYS_ARG_LIMIT = 20
         static let CURRENCY_TYPE_CRYPTO = 1
         static let CURRENCY_TYPE_FIAT = 2
     }

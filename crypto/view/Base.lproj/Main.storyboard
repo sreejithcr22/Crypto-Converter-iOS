@@ -164,7 +164,7 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fbx-wA-mHZ">
                                                                 <rect key="frame" x="206.99999999999997" y="0.0" width="103.66666666666666" height="57.666666666666664"/>
                                                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <state key="normal" image="square.and.arrow.up" catalog="system"/>
+                                                                <state key="normal" image="globe" catalog="system"/>
                                                                 <connections>
                                                                     <segue destination="JiI-zQ-ZTe" kind="show" id="SfZ-we-aFr"/>
                                                                 </connections>
@@ -471,23 +471,23 @@
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CoinListTableViewCell" id="sT1-Po-NOg" customClass="CoinListTableViewCell" customModule="crypto" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="99.333335876464844"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="99.666664123535156"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sT1-Po-NOg" id="t6C-zQ-SPn">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="99.333335876464844"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="99.666664123535156"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2ZM-pb-0fC">
-                                            <rect key="frame" x="10" y="0.0" width="394" height="99.333333333333329"/>
+                                            <rect key="frame" x="10" y="0.0" width="394" height="99.666666666666671"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BR4-rT-G8B" userLabel="coin_name">
-                                                    <rect key="frame" x="10" y="22.000000000000004" width="197" height="55.333333333333343"/>
+                                                    <rect key="frame" x="10" y="21.999999999999996" width="197" height="55.666666666666657"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Urz-Ne-2f0" userLabel="coin_price">
-                                                    <rect key="frame" x="206.66666666666663" y="22.000000000000004" width="177.33333333333337" height="55.333333333333343"/>
+                                                    <rect key="frame" x="206.66666666666663" y="21.999999999999996" width="177.33333333333337" height="55.666666666666657"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                     <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -743,11 +743,11 @@
     </scenes>
     <resources>
         <image name="ellipsis" catalog="system" width="64" height="18"/>
+        <image name="globe" catalog="system" width="64" height="60"/>
         <image name="heart.fill" catalog="system" width="64" height="54"/>
         <image name="list.dash" catalog="system" width="64" height="42"/>
-        <image name="square.and.arrow.up" catalog="system" width="56" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dgr-u0-Os2"/>
+        <segue reference="wvH-TA-wec"/>
     </inferredMetricsTieBreakers>
 </document>

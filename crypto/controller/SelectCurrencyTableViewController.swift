@@ -19,6 +19,9 @@ class SelectCurrencyTableViewController: UITableViewController, UISearchResultsU
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        currencyList.sort { (arg0, arg1) -> Bool in
+            arg0.1 < arg1.1
+        }
         setupSearchBar()
         self.tableView.tableFooterView = UIView()
     }
