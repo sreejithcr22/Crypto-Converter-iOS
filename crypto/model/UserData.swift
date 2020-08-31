@@ -17,4 +17,5 @@ struct UserData {
     public static func setSelectedCurrency(currency: String) {
         UserDefaults.standard.set(currency, forKey: SELECTED_CURRENCY)
     }
+    public static let AD_ID = "ca-app-pub-7040172378865675/1562787166"
 }

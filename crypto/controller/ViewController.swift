@@ -7,10 +7,10 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
 class ViewController: UIViewController, ChangeCurrencyDelegate, FavouritesDelegate, PriceFetchProgressDelegate {
     @IBOutlet weak var loadingLabel: UILabel!
-    
     @IBOutlet weak var loadingView: UIStackView!
     @IBOutlet weak var rootView: UIStackView!
     @IBOutlet weak var buttonsContainerStack: UIStackView!
@@ -25,6 +25,8 @@ class ViewController: UIViewController, ChangeCurrencyDelegate, FavouritesDelega
     private var selectedCurrencyBtn: CurrencyButton = .BUTTON_1
     private var selectedLabel: UILabel!
     private var outputLabel: UILabel!
+    var interstitial: GADInterstitial!
+    
     private let PROGRESS_SHOWN = "progress_shown"
     
     private enum CurrencyButton: Int {
@@ -129,7 +131,12 @@ class ViewController: UIViewController, ChangeCurrencyDelegate, FavouritesDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
+        //let ad = createAndLoadInterstitial()
+        interstitial = GADInterstitial(adUnitID: UserData.AD_ID)
+        let request = GADRequest()
+        interstitial.delegate = self
+        interstitial.load(request)
+        
         if Utils.isConnectedToNetwork() {
             APIClient.syncPrices(progressDelegate: self)
         } else {
@@ -303,7 +310,6 @@ class ViewController: UIViewController, ChangeCurrencyDelegate, FavouritesDelega
     private func isProgressShown() -> Bool {
         return UserDefaults.standard.bool(forKey: PROGRESS_SHOWN)
     }
-
 }
 
 extension UIViewController {
@@ -319,5 +325,14 @@ extension UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true)
     }
+}
+
+extension ViewController: GADInterstitialDelegate {
+    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
+        if(ad.isReady) {
+            ad.present(fromRootViewController: self)
+        }
+    }
+
 }
 

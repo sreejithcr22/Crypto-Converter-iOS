@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import GoogleMobileAds
 
 class CoinListTableViewController: UITableViewController, ChangeCurrencyDelegate,  UISearchResultsUpdating {
     
@@ -16,10 +17,16 @@ class CoinListTableViewController: UITableViewController, ChangeCurrencyDelegate
     private var filteredList: Array<CoinPrice>?
     private var selectedCurrency = UserData.getSelectedCurrency()
     private var resultSearchController = UISearchController()
-    
+    private var interstitial: GADInterstitial!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        interstitial = GADInterstitial(adUnitID: UserData.AD_ID)
+        let request = GADRequest()
+        interstitial.delegate = self
+        interstitial.load(request)
+        
         setupSearchBar()
         self.tableView.allowsSelection = false
         if let prices = ConverterDB.getAllPrices() {
@@ -124,4 +131,13 @@ class CoinListTableViewController: UITableViewController, ChangeCurrencyDelegate
         })
     }
     
+}
+
+extension CoinListTableViewController: GADInterstitialDelegate {
+    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
+        if(ad.isReady) {
+            ad.present(fromRootViewController: self)
+        }
+    }
+
 }
