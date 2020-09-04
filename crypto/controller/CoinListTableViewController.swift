@@ -22,10 +22,12 @@ class CoinListTableViewController: UITableViewController, ChangeCurrencyDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        interstitial = GADInterstitial(adUnitID: UserData.AD_ID)
-        let request = GADRequest()
-        interstitial.delegate = self
-        interstitial.load(request)
+        if UserData.shouldShowAd() {
+            interstitial = GADInterstitial(adUnitID: UserData.AD_ID)
+            let request = GADRequest()
+            interstitial.delegate = self
+            interstitial.load(request)
+        }
         
         setupSearchBar()
         self.tableView.allowsSelection = false
@@ -135,7 +137,7 @@ class CoinListTableViewController: UITableViewController, ChangeCurrencyDelegate
 
 extension CoinListTableViewController: GADInterstitialDelegate {
     func interstitialDidReceiveAd(_ ad: GADInterstitial) {
-        if(ad.isReady) {
+        if(ad.isReady && UserData.shouldShowAd()) {
             ad.present(fromRootViewController: self)
         }
     }

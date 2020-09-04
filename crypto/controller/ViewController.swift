@@ -131,11 +131,13 @@ class ViewController: UIViewController, ChangeCurrencyDelegate, FavouritesDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //let ad = createAndLoadInterstitial()
-        interstitial = GADInterstitial(adUnitID: UserData.AD_ID)
-        let request = GADRequest()
-        interstitial.delegate = self
-        interstitial.load(request)
+        UserData.updateSessionCount()
+        if UserData.shouldShowAd() {
+            interstitial = GADInterstitial(adUnitID: UserData.AD_ID)
+            let request = GADRequest()
+            interstitial.delegate = self
+            interstitial.load(request)
+        }
         
         if Utils.isConnectedToNetwork() {
             APIClient.syncPrices(progressDelegate: self)
@@ -329,7 +331,7 @@ extension UIViewController {
 
 extension ViewController: GADInterstitialDelegate {
     func interstitialDidReceiveAd(_ ad: GADInterstitial) {
-        if(ad.isReady) {
+        if(ad.isReady && UserData.shouldShowAd()) {
             ad.present(fromRootViewController: self)
         }
     }

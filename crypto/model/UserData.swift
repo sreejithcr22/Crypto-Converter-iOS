@@ -10,6 +10,7 @@ import Foundation
 
 struct UserData {
     private static var SELECTED_CURRENCY = "selected_currency"
+     private static var SESSION_COUNT = "session_count"
     
     public static func getSelectedCurrency() ->String {
         return UserDefaults.standard.string(forKey: SELECTED_CURRENCY) ?? "USD"
@@ -17,5 +18,12 @@ struct UserData {
     public static func setSelectedCurrency(currency: String) {
         UserDefaults.standard.set(currency, forKey: SELECTED_CURRENCY)
     }
+    public static func updateSessionCount() {
+        UserDefaults.standard.set(UserDefaults.standard.integer(forKey: SESSION_COUNT)+1, forKey: SESSION_COUNT)
+    }
+    public static func shouldShowAd() -> Bool {
+        return UserDefaults.standard.integer(forKey: SESSION_COUNT) > 2
+    }
     public static let AD_ID = "ca-app-pub-7040172378865675/1562787166"
+    
 }
