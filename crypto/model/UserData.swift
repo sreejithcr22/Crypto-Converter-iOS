@@ -24,6 +24,6 @@ struct UserData {
     public static func shouldShowAd() -> Bool {
         return UserDefaults.standard.integer(forKey: SESSION_COUNT) > 2
     }
-    public static let AD_ID = "ca-app-pub-7040172378865675/1562787166"
+    public static let AD_ID = "ca-app-pub-3940256099942544/1033173712"
     
 }
